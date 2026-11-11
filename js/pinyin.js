@@ -31,7 +31,11 @@
     const words = py.split(/[\s\-·()（）]+/).filter(Boolean);
     const result = [];
     for (const w0 of words) {
-      const parts = w0.split(/['’]/);
+      const mm = w0.match(/^([^A-Za-zÀ-ɏ]*)(.*?)([^A-Za-zÀ-ɏ]*)$/);
+      const lead = mm ? mm[1] : '', trail = mm ? mm[3] : '';
+      const core = mm ? mm[2] : w0;
+      const startLen = result.length;
+      const parts = core.split(/['’]/);
       parts.forEach((part, pi) => {
         const chars = Array.from(part);
         const low = chars.map(c => c.toLowerCase());
@@ -65,6 +69,10 @@
           }
         });
       });
+      if (result.length > startLen) {
+        if (lead) result[startLen].text = lead + result[startLen].text;
+        if (trail) result[result.length - 1].text += trail;
+      } else if (lead + trail) result.push({ text: lead + trail, tone: 5 });
       result.push(null); // word gap
     }
     if (result[result.length - 1] === null) result.pop();

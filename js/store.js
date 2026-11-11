@@ -15,9 +15,11 @@
     unlockedLevels: [1],
     activeDays: [],              // 'YYYY-MM-DD'
     stats: { reviews: 0, correct: 0, toneTries: 0 },
-    settings: { newPerDay: 10, rate: 0.8, autoplay: true, pinyinOnFront: false, weeklyGoal: 4 },
+    settings: { newPerDay: 10, rate: 0.8, autoplay: true, pinyinOnFront: false, weeklyGoal: 4, voiceSource: 'auto', voiceRef: null },
     today: { date: '', newLearned: 0 },
-    seenIntro: false
+    seenIntro: false,
+    grammarDone: {},
+    mapAt: null
   });
 
   let state;
